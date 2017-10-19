@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 # Maximal repeats algorithm as per Lucian Ilie's paper. Requires input string
 # not to have any singleton characters.
 def maximal_repeats(w):
