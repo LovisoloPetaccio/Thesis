@@ -1,15 +1,16 @@
-# -*- coding: UTF-8 -*-
+SEPARATOR = '$'
 
 # Maximal repeats algorithm as per Lucian Ilie's paper. Requires input string
 # not to have any singleton characters.
 def maximal_repeats(w):
-  assert get_singletons(w) == set()
+  #assert get_singletons(w) == set()
 
   SA, LCP = suffix_and_lcp_array(w)
   max_rep = [len(w)] * len(w)
   for i in range(len(w)):
     lcp = max(LCP[i], LCP[i + 1]) if i < len(w) - 1 else LCP[i]
-    max_rep[SA[i] + lcp - 1] = min(max_rep[SA[i] + lcp - 1], SA[i])
+    if lcp > 0:
+      max_rep[SA[i] + lcp - 1] = min(max_rep[SA[i] + lcp - 1], SA[i])
 
   # Build list with actual substrings.
   max_rep_str = [w[max_rep[j]:(j+1)]
@@ -18,6 +19,9 @@ def maximal_repeats(w):
 
   return set(max_rep_str)  # Return strings as set.
 
+# Receives a list of strings
+def maximal_repeats_of_family(aListOfStrings):
+  return maximal_repeats("$".join(aListOfStrings))
 
 # Builds SA and LCP arrays as per Lucian Ilie's paper.
 # Note: This is a naive implementation of the algorithms. A linear time
@@ -52,7 +56,7 @@ def suffix_and_lcp_array(w):
 def longest_common_prefix_length(v, w):
   l = 0
   for a, b in zip(v, w):
-    if a != b: break
+    if a != b or a == SEPARATOR or b == SEPARATOR: break
     l += 1
   return l
 

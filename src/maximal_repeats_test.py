@@ -1,5 +1,3 @@
-# -*- coding: UTF-8 -*-
-
 import unittest
 import maximal_repeats as mr
 
@@ -9,7 +7,7 @@ class TestMaximalRepeats(unittest.TestCase):
 
   def test_maximal_repeats(self):
     self.assertEqual(mr.maximal_repeats("abaababa"), {"aba"})
-
+    
 
   def test_suffix_and_lcp_array(self):
     SA, LCP = mr.suffix_and_lcp_array("abaababa")
@@ -44,11 +42,23 @@ class TestMaximalRepeats(unittest.TestCase):
     self.assertEqual(mr.split_at_singletons("abc"), [])
 
 
-  # def test_maximal_repeats_with_singleton_characters(self):
-  #   self.assertEqual(mr.maximal_repeats_with_singleton_characters(
-  #     "papototalatalatota"), {"tota", "talat", "ot"})
-  #   self.assertEqual(mr.maximal_repeats_with_singleton_characters(
-  #     "patalatalota"), {"atal", "ta"})
+  def test_multiple_sequences(self):
+    self.assertEqual(mr.maximal_repeats_of_family(["ac", "ac"]), {"ac"})
+    self.assertEqual(mr.maximal_repeats_of_family(["ad", "ac"]), {"a"})
+    self.assertEqual(mr.maximal_repeats_of_family(["de", "ac"]), {})
+
+
+  def test_maximal_repeats_with_singleton_characters(self):
+    self.assertEqual(mr.maximal_repeats(
+      "papototalatalatota"), {"tota", "talat", "ot"})
+    self.assertEqual(mr.maximal_repeats(
+      "patalatalota"), {"atal", "ta"})
+    self.assertEqual(mr.maximal_repeats("b"), {})
+    self.assertEqual(mr.maximal_repeats("ba"), {})
+    self.assertEqual(mr.maximal_repeats("ab"), {})
+    # This test guards againts negative indexes when LCP and SA[i] are <= 1
+    self.assertEqual(mr.maximal_repeats("abb"), {"b"})
+    self.assertEqual(mr.maximal_repeats("bba"), {"b"})
 
 
 if __name__ == '__main__':
