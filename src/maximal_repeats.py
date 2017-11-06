@@ -7,6 +7,7 @@ def maximal_repeats(w):
 
   SA, LCP = suffix_and_lcp_array(w)
   max_rep = [len(w)] * len(w)
+  # print(LCP)
   for i in range(len(w)):
     lcp = max(LCP[i], LCP[i + 1]) if i < len(w) - 1 else LCP[i]
     if lcp > 0:
@@ -15,7 +16,7 @@ def maximal_repeats(w):
   # Build list with actual substrings.
   max_rep_str = [w[max_rep[j]:(j+1)]
                  for j in range(len(w))
-                 if max_rep[j] < j]
+                 if max_rep[j] < len(w)]
 
   return set(max_rep_str)  # Return strings as set.
 

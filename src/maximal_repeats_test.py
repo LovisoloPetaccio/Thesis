@@ -45,19 +45,19 @@ class TestMaximalRepeats(unittest.TestCase):
   def test_multiple_sequences(self):
     self.assertEqual(mr.maximal_repeats_of_family(["ac", "ac"]), {"ac"})
     self.assertEqual(mr.maximal_repeats_of_family(["ad", "ac"]), {"a"})
-    self.assertEqual(mr.maximal_repeats_of_family(["de", "ac"]), {})
+    self.assertEqual(mr.maximal_repeats_of_family(["de", "ac"]), set())
 
 
   def test_maximal_repeats_with_singleton_characters(self):
     self.assertEqual(mr.maximal_repeats(
-      "papototalatalatota"), {"tota", "talat", "ot"})
+      "papototalatalatota"), {"tota", "talat", "ot", "p", "a"})
     self.assertEqual(mr.maximal_repeats(
       "patalatalota"), {"atal", "ta"})
-    self.assertEqual(mr.maximal_repeats("b"), {})
-    self.assertEqual(mr.maximal_repeats("ba"), {})
-    self.assertEqual(mr.maximal_repeats("ab"), {})
+    self.assertEqual(mr.maximal_repeats("b"), set())
+    self.assertEqual(mr.maximal_repeats("ba"), set())
+    self.assertEqual(mr.maximal_repeats("ab"), set())
     # This test guards againts negative indexes when LCP and SA[i] are <= 1
-    self.assertEqual(mr.maximal_repeats("abb"), {"b"})
+    self.assertEqual(mr.maximal_repeats("abb$"), {"b"})
     self.assertEqual(mr.maximal_repeats("bba"), {"b"})
 
 
